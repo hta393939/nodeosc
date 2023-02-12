@@ -3,6 +3,7 @@
  */
 
 const logger = require('./logger');
+const EventEmitter = require('events');
 const dgram = require('dgram');
 
 class Udp extends EventEmitter {
@@ -10,6 +11,7 @@ class Udp extends EventEmitter {
     static EV_ERR = 'err';
     static EV_CLOSE = 'close';
     constructor() {
+        super();
     }
     init() {
         logger.log('init');

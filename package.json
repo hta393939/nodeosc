@@ -1,7 +1,10 @@
 {
     "name": "nodeosc",
     "version": "0.1.0",
-    "description": "Try OSC by node.js"
+    "description": "Try OSC by node.js",
+    "scripts": {
+        "start": "node ./src/main.js"
+    }
 }
 
 

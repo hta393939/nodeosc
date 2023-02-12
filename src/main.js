@@ -5,6 +5,7 @@
 const logger = require('./logger');
 const Server = require('./server');
 const Udp = require('./udp');
+const Osc = require('./osc');
 
 class Misc {
     constructor() {
@@ -21,9 +22,14 @@ class Misc {
         const osc = new Osc();
         this.osc = osc;
 
-        server.init();
-        udp.init();
+        {
+            udp.on(Udp.EV_DATA, (obj) => {
+                logger.log('receive data');
+            });
+            udp.init();
+        }
         osc.init();
+        server.init();
     }
 }
 

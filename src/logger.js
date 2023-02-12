@@ -15,8 +15,14 @@ class Logger {
         const e = new Error();
         const ss = e.stack.split('\n');
         ss.shift();
+        ss.shift();
+        let line = ss[0];
+        const retop = /^\s+at/;
+        const repath = new RegExp(`${__dirname}\/`);
+        line = line.replace(retop, '');
+        line = line.replace(repath, '');
         console.log(`${_tstr()}`,
-            ss[0],
+            line,
             ...argv);
     }
 }
