@@ -8,7 +8,15 @@ class Misc {
     }
     init() {
         const params = new URLSearchParams(location.search);
+        for (const k of []) {
+            let val = params.get(k) ?? true;
+            try {
+                val = JSON.parse(val);
+            } catch(ec) {
 
+            }
+            this[k] = val;
+        }
     }
 }
 

@@ -2,15 +2,17 @@
  * @file main.js
  */
 
-const http = require('http');
-const dgram = require('dgram');
+const logger = require('logger');
+const Server = require('server');
 
 class Misc {
     constructor() {
 
     }
     init() {
-
+        logger.log('init');
+        const server = new Server();
+        this.server = server.init();
     }
 }
 
