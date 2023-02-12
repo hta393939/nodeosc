@@ -2,6 +2,7 @@
  * @file server.js
  */
 
+const logger = require('./logger');
 const http = reqiure('http');
 
 class Server {
@@ -9,7 +10,7 @@ class Server {
 
     }
     init() {
-
+        logger.log('init');
     }
 }
 

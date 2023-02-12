@@ -12,7 +12,12 @@ class Logger {
 
     }
     log(...argv) {
-        console.log(`${_tstr()}`, ...argv);
+        const e = new Error();
+        const ss = e.stack.split('\n');
+        ss.shift();
+        console.log(`${_tstr()}`,
+            ss[0],
+            ...argv);
     }
 }
 
