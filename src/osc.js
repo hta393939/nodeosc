@@ -74,6 +74,31 @@ class Osc {
         return ab;
     }
 
+    makeOnePacket(param) {
+        const bufs = [];
+        bufs.push(this.makeString(param.address));
+        let s = ',';
+        for (const v of param.values) {
+            s += v.type;
+        }
+        bufs.push(this.makeString(s));
+        for (const v of param.values) {
+            let buf = null;
+            switch(v.type) {
+            case 'i':
+                buf = this.makeInt32(v.value);               
+                break;
+            case 'f':
+                buf = this.makeFloat32(v.value);
+                break;
+            }
+            if (buf) {
+                bufs.push(buf);
+            }
+        }
+        return bufs;
+    }
+
     makeBundle() {
 
     }

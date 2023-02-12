@@ -12,9 +12,13 @@ class Udp extends EventEmitter {
     static EV_CLOSE = 'close';
     constructor() {
         super();
+/**
+ * 待ち受けポート
+ */
+        this.port = null;
     }
-    init() {
-        logger.log('init');
+    init(param) {
+        logger.log('init', param);
         const client = dgram.createSocket('udp4');
         this.client = client;
         this.setListener(client);
