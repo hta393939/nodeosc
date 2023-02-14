@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.pt {
+    cursor: pointer;
+}
+
+.tobottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.toright {
+    display: flex;
+    flex-direction: row;
+}
+
+.drop {
+    user-select: none;
+    text-align: center;
+    font-weight: bold;
+    margin: 1em;
+    border: dashed 4px black;
+    border-radius: 2em;
+    padding: 1em;
+}
+
+
