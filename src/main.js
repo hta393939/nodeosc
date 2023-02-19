@@ -5,7 +5,7 @@
 const logger = require('./logger');
 const Server = require('./server');
 const Udp = require('./udp');
-const Osc = require('./osc');
+const Osc = require('../public/lib/osc');
 
 class Misc {
 /**
@@ -16,6 +16,14 @@ class Misc {
  * パフォーマー待ち受けデフォルト
  */
     static PORT_DEFAULT_PER = 39540;
+/**
+ * VCI 受信デフォルト
+ */
+    static PORT_DEFAULT_VCI = 19100;
+/**
+ * 外部受信デフォルト
+ */
+    static PORT_DEFAULT_OUTER = 18100;
 
     constructor() {
 

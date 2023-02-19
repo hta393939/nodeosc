@@ -2,14 +2,13 @@
  * @file osc.js
  */
 
-const logger = require('./logger');
+(function(_global) {
 
 class Osc {
     constructor() {
     }
 
     init() {
-        logger.log('init');
     }
 
 /**
@@ -51,19 +50,17 @@ class Osc {
     makeFloat32(val) {
         const ab = new ArrayBuffer(4);
         const p = new DataView(ab);
-        p.setFloat32(0, val, false);
+        p.setFloat32(0, val, false); // BE
         return ab;
     }
 
 /**
- * 
+ * blob を作成する
  * @param {ArrayBuffer} val 
+ * @returns {ArrayBuffer}
  */
     makeBlob(val) {
-        let mod = 4 - (val.byteLength % 4);
-        if (mod === 0) {
-            mod = 4;
-        }
+        let mod = val.byteLength % 4;
         const len = 4 + val.byteLength + mod;
         const ab = new ArrayBuffer(len);
         const p = new DataView(ab);
@@ -100,7 +97,7 @@ class Osc {
                 buf = this.makeString(v.value);
                 break;
             case 'b':
-                // not implemented
+                buf = this.makeBlob(v.value);
                 break;
             }
             if (buf) {
@@ -190,6 +187,19 @@ class Osc {
         return ret;
     }
 
+    readBlob(p, offset) {
+        const ret = {
+            type: 'b',
+        };
+        let ft = offset;
+        const len = p.getInt32(ft, false);
+        const u8 = new Uint8Array(len);
+        u8.copy(p, offset + 4);
+        ret.value = u8;
+        ret.offset = ft + Math.floor((offset + 4 + 3) / 4);
+        return ret;
+    }
+
 /**
  * 
  * @param {DataView} p 
@@ -201,7 +211,6 @@ class Osc {
             type: 'packet',
             values: [],
         };
-        // 未実
         let cur = this.readString(p, offset);
         ret.address = cur.value;
         cur = this.readString(p, cur.offset);
@@ -254,6 +263,15 @@ class Osc {
 
 }
 
-module.exports = Osc;
+if (typeof exports !== 'undefined') {
+    if (typeof modules !== 'undefined') {
+        exports = modules.exports = Osc;
+    }
+    module.exports.Osc = Osc;
+} else {
+    _global.Osc = Osc;
+}
+
+})( (this || 0).self || (typeof self !== 'undefined' ? self : global ));
 
 
